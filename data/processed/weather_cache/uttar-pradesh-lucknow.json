@@ -1,0 +1,1 @@
+{"location_id": "uttar-pradesh-lucknow", "location_name": "Lucknow", "latitude": 26.84113, "longitude": 80.90385, "timestamp": "2026-09-13T10:00", "temperature_c": 31.0, "relative_humidity_pct": 71, "wind_speed_ms": 4.42, "solar_radiation_wm2": 656.0, "pressure_hpa": 997.8, "dew_point_c": 25.0, "source": "LIVE:open-meteo", "status": "LIVE", "_cached_at_unix": 1789276592.2889988}

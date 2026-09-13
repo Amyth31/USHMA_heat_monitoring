@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+:root {
+  /* Base surfaces — deep navy-charcoal, not pure black */
+  --bg-void: #0a0d12;
+  --bg-base: #0e1218;
+  --bg-panel: #131822;
+  --bg-panel-raised: #171d29;
+  --border-hairline: #232a38;
+  --border-hairline-strong: #2f3848;
+
+  /* Text */
+  --text-primary: #e7ebf1;
+  --text-secondary: #93a0b4;
+  --text-tertiary: #5c6b82;
+
+  /* Heat risk ramp — the core semantic color system */
+  --risk-safe: #2f9e74;
+  --risk-caution: #c9a227;
+  --risk-moderate: #d97b3f;
+  --risk-high: #c2453f;
+  --risk-extreme: #8a1f3b;
+
+  /* Accent — instrumentation cyan, used sparingly for live/active states */
+  --accent: #d97b3f;
+
+  --radius-sm: 3px;
+  --radius-md: 5px;
+}
+
+@theme inline {
+  --color-bg-void: var(--bg-void);
+  --color-bg-base: var(--bg-base);
+  --color-bg-panel: var(--bg-panel);
+  --color-bg-panel-raised: var(--bg-panel-raised);
+  --color-border-hairline: var(--border-hairline);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-risk-safe: var(--risk-safe);
+  --color-risk-caution: var(--risk-caution);
+  --color-risk-moderate: var(--risk-moderate);
+  --color-risk-high: var(--risk-high);
+  --color-risk-extreme: var(--risk-extreme);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-public-sans);
+  --font-mono: var(--font-plex-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-public-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-data {
+  font-family: var(--font-plex-mono), monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg-void);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes heat-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+.heat-glow {
+  animation: heat-pulse 6s ease-in-out infinite;
+}
+
+/* Dark map theme via CSS filter on plain OpenStreetMap tiles — no API
+   key required, unlike hosted dark basemap providers. */
+.map-tiles-dark {
+  filter: invert(1) hue-rotate(185deg) brightness(0.92) contrast(0.92) saturate(0.5);
+}
+
+.leaflet-container {
+  background: var(--bg-panel) !important;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--bg-panel-raised) !important;
+  color: var(--text-primary) !important;
+}
+.leaflet-control-zoom a {
+  background: var(--bg-panel-raised) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-hairline-strong) !important;
+}

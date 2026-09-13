@@ -1,0 +1,12 @@
+district,latitude,longitude,area_km2,population_2011,population_density_km2,elderly_pct_50plus,outdoor_worker_pct,literacy_pct,household_electricity_pct,data_note
+North West,28.72527,77.04318,154.1,3656539,23733.0,13.76,2.08,74.06,70.2,Direct real 2011 Census figure (district boundary unchanged)
+West,28.65537,77.06398,131.2,2543243,19379.9,16.1,0.84,77.11,74.17,Direct real 2011 Census figure (district boundary unchanged)
+South West,28.57629,76.96775,283.1,2292958,8098.7,13.49,2.2,77.96,70.68,Direct real 2011 Census figure (district boundary unchanged)
+East,28.62209,77.30468,31.6,1709346,54136.4,15.34,0.73,79.15,76.32,Direct real 2011 Census figure (district boundary unchanged)
+South,28.48135,77.19065,159.1,1662375,10449.2,13.03,0.96,76.08,75.15,"Apportioned from 2011 'South' district (2,731,929) by real area share (60.8%)"
+North East,28.72272,77.25653,35.9,1147349,31973.1,11.82,0.7,71.89,80.39,"Apportioned from 2011 'North East' district (2,241,624) by real area share (51.2%)"
+Shahadara,28.67687,77.29863,34.2,1094275,31973.1,11.82,0.7,71.89,80.39,"Apportioned from 2011 'North East' district (2,241,624) by real area share (48.8%)"
+South East,28.54233,77.27286,102.4,1069554,10449.2,13.03,0.96,76.08,75.15,"Apportioned from 2011 'South' district (2,731,929) by real area share (39.2%)"
+North,28.7934,77.10783,291.9,887978,3042.1,14.03,1.34,76.75,57.9,Direct real 2011 Census figure (district boundary unchanged)
+Central,28.69348,77.21266,81.0,582320,7185.0,16.24,0.58,75.97,58.18,Direct real 2011 Census figure (district boundary unchanged)
+New Delhi,28.57716,77.14868,156.6,142004,906.7,15.36,0.67,80.41,57.01,Direct real 2011 Census figure (district boundary unchanged)

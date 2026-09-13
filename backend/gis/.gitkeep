@@ -1,0 +1,1 @@
+# Reserved for future PostGIS spatial-query helpers (see docs/deployment.md — services currently read CSV/JSON directly)
