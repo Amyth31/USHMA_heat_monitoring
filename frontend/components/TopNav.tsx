@@ -22,7 +22,7 @@ export default function TopNav() {
       style={{ borderColor: "var(--border-hairline)", background: "color-mix(in srgb, var(--bg-base) 90%, transparent)" }}
     >
       <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-        <Link href="/" className="font-semibold tracking-[0.08em] text-sm uppercase">
+        <Link href="/" className="font-semibold text-sm">
           USHMA
         </Link>
         <div className="flex gap-1 text-sm h-full">

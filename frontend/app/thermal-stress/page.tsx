@@ -1,5 +1,6 @@
 "use client";
 
+import DemoScenarioSelect from "@/components/DemoScenarioSelect";
 import TopNav from "@/components/TopNav";
 import RiskBadge from "@/components/RiskBadge";
 import LocationSearch from "@/components/LocationSearch";
@@ -24,17 +25,7 @@ export default function ThermalStressPage() {
           </div>
           <div className="flex gap-3">
             <LocationSearch onSelect={setLocation} />
-            <select
-              value={demoKey || ""}
-              onChange={(e) => setDemoKey(e.target.value || undefined)}
-              className="text-sm px-3 py-2 rounded-[var(--radius-sm)] border"
-              style={{ background: "var(--bg-panel)", borderColor: "var(--border-hairline-strong)" }}
-            >
-              <option value="">Live weather</option>
-              {demoEvents.map((ev) => (
-                <option key={ev.key} value={ev.key}>{ev.label}</option>
-              ))}
-            </select>
+            <DemoScenarioSelect value={demoKey} onChange={setDemoKey} events={demoEvents} />
           </div>
         </div>
 

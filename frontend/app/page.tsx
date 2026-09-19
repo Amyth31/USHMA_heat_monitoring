@@ -22,49 +22,45 @@ export default function LandingPage() {
   return (
     <main className="min-h-screen">
       {/* HERO */}
-      <section className="relative overflow-hidden border-b min-h-screen flex items-center" style={{ borderColor: "var(--border-hairline)" }}>
-        <div
-          aria-hidden
-          className="absolute -top-40 right-[-10%] w-[600px] h-[600px] rounded-full pointer-events-none heat-glow"
-          style={{
-            background: "radial-gradient(circle, color-mix(in srgb, var(--risk-extreme) 25%, transparent) 0%, transparent 70%)",
-          }}
-        />
+      <section className="border-b min-h-screen flex items-center" style={{ borderColor: "var(--border-hairline)" }}>
         <div className="max-w-6xl mx-auto px-6 py-24 relative w-full">
-          <div className="mb-3">
-            <span className="text-6xl md:text-7xl font-bold tracking-tight">USHMA</span>
-          </div>
-          <p className="text-base md:text-lg text-[var(--text-secondary)] mb-10">
-            Unified System for Heat Monitoring &amp; Analytics
-          </p>
-
-          <h1 className="text-3xl md:text-4xl leading-[1.15] font-semibold max-w-3xl mb-6">
-            Heat doesn&apos;t kill because of temperature alone.
-          </h1>
-          <p className="text-2xl md:text-3xl text-[var(--text-secondary)] max-w-3xl mb-10 leading-snug">
-            USHMA predicts what extreme heat will do to people — combining
-            weather intelligence, thermal stress modelling, real population
-            vulnerability data, and health-risk estimation for hyperlocal
-            heatwave early warning, worldwide. India runs at real
-            district-level depth; every other country uses real
-            country-level data.
-          </p>
-
-          <div className="flex flex-wrap gap-4 mb-16">
-            <Link
-              href="/dashboard"
-              className="px-6 py-3 rounded-[var(--radius-sm)] font-medium text-sm"
-              style={{ background: "var(--accent)", color: "var(--bg-void)" }}
+          {/* Left column — copy + CTAs */}
+          <div>
+            <div
+              className="text-xs font-mono uppercase tracking-[0.14em] mb-5"
+              style={{ color: "var(--text-tertiary)" }}
             >
-              Enter Command Centre
-            </Link>
-            <Link
-              href="/risk-map"
-              className="px-6 py-3 rounded-[var(--radius-sm)] font-medium text-sm border"
-              style={{ borderColor: "var(--border-hairline-strong)" }}
-            >
-              View risk map
-            </Link>
+              USHMA · Unified System for Heat Monitoring &amp; Analytics
+            </div>
+
+            <h1 className="text-4xl md:text-5xl leading-[1.1] font-semibold max-w-xl mb-6">
+              Heat doesn&apos;t kill because of temperature alone.
+            </h1>
+            <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-xl mb-10 leading-relaxed">
+              USHMA predicts what extreme heat will do to people — combining
+              weather intelligence, thermal stress modelling, real population
+              vulnerability data, and health-risk estimation for hyperlocal
+              heatwave early warning, worldwide. India runs at real
+              district-level depth; every other country uses real
+              country-level data.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/dashboard"
+                className="px-6 py-3 rounded-[var(--radius-sm)] font-medium text-sm transition-colors duration-150"
+                style={{ background: "var(--accent)", color: "var(--bg-void)" }}
+              >
+                Enter Command Centre
+              </Link>
+              <Link
+                href="/risk-map"
+                className="px-6 py-3 rounded-[var(--radius-sm)] font-medium text-sm border transition-colors duration-150 hover:bg-[var(--bg-panel)]"
+                style={{ borderColor: "var(--border-hairline-strong)" }}
+              >
+                View risk map
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -90,7 +86,11 @@ export default function LandingPage() {
           </p>
           <div className="grid md:grid-cols-6 gap-px" style={{ background: "var(--border-hairline)" }}>
             {PIPELINE_STAGES.map((stage) => (
-              <div key={stage.label} className="p-5" style={{ background: "var(--bg-panel)" }}>
+              <div
+                key={stage.label}
+                className="p-5 transition-colors duration-200 hover:bg-[var(--bg-panel-raised)]"
+                style={{ background: "var(--bg-panel)" }}
+              >
                 <div className="text-base font-medium mb-1.5">{stage.label}</div>
                 <div className="text-xs text-[var(--text-tertiary)] leading-relaxed">{stage.detail}</div>
               </div>
@@ -109,7 +109,7 @@ export default function LandingPage() {
             {STAKEHOLDERS.map((s, i) => (
               <div
                 key={s.name}
-                className="grid md:grid-cols-[280px_1fr] gap-4 py-6"
+                className="grid md:grid-cols-[280px_1fr] gap-4 py-6 px-3 -mx-3 rounded-[var(--radius-sm)] transition-colors duration-200 hover:bg-[var(--bg-panel)]"
                 style={{ borderTop: i === 0 ? "none" : "1px solid var(--border-hairline)" }}
               >
                 <div className="font-medium">{s.name}</div>

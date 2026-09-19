@@ -1,5 +1,31 @@
 [
   {
+    "id": "d4116466",
+    "location_id": "uttar-pradesh-lucknow",
+    "location_name": "Lucknow",
+    "risk_level": "HIGH",
+    "trigger": "Hospitalization relative risk = HIGH",
+    "expected_duration_days": null,
+    "actions": [
+      "Alert hospitals and primary health centres to prepare heat-illness triage capacity and ORS/IV fluid stock"
+    ],
+    "status": "ACTIVE",
+    "created_at_unix": 1789652487.796309
+  },
+  {
+    "id": "2fe1a0fd",
+    "location_id": "uttar-pradesh-lucknow",
+    "location_name": "Lucknow",
+    "risk_level": "HIGH",
+    "trigger": "Hospitalization relative risk = HIGH",
+    "expected_duration_days": null,
+    "actions": [
+      "Alert hospitals and primary health centres to prepare heat-illness triage capacity and ORS/IV fluid stock"
+    ],
+    "status": "RESOLVED",
+    "created_at_unix": 1789652134.2666073
+  },
+  {
     "id": "6d40bb08",
     "location_id": "uttar-pradesh-lucknow",
     "location_name": "Lucknow",

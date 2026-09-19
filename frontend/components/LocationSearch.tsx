@@ -37,7 +37,7 @@ export default function LocationSearch({
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onFocus={() => results.length > 0 && setOpen(true)}
-        className="w-full px-3 py-2 text-sm rounded-[var(--radius-sm)] border outline-none"
+        className="w-full px-1 py-2 text-sm outline-none bg-transparent border-0 border-b-2 border-[var(--border-hairline-strong)] transition-colors duration-150 focus:border-[var(--accent)] text-[var(--text-primary)]"
         style={{
           background: "var(--bg-panel)",
           borderColor: "var(--border-hairline-strong)",

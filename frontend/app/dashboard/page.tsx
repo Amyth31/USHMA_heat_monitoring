@@ -1,5 +1,6 @@
 "use client";
 
+import DemoScenarioSelect from "@/components/DemoScenarioSelect";
 import { useEffect, useState } from "react";
 import { api, Location, RiskOverview, Recommendation, DemoEvent } from "@/lib/api";
 import RiskBadge from "@/components/RiskBadge";
@@ -59,19 +60,7 @@ export default function DashboardPage() {
           </div>
           <div className="flex items-center gap-3">
             <LocationSearch onSelect={setLocation} />
-            <select
-              value={demoKey || ""}
-              onChange={(e) => setDemoKey(e.target.value || undefined)}
-              className="text-sm px-3 py-2 rounded-[var(--radius-sm)] border"
-              style={{ background: "var(--bg-panel)", borderColor: "var(--border-hairline-strong)" }}
-            >
-              <option value="">Live weather</option>
-              {demoEvents.map((ev) => (
-                <option key={ev.key} value={ev.key}>
-                  {ev.label}
-                </option>
-              ))}
-            </select>
+            <DemoScenarioSelect value={demoKey} onChange={setDemoKey} events={demoEvents} />
           </div>
         </div>
 

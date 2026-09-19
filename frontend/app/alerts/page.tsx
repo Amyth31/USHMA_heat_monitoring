@@ -126,7 +126,7 @@ export default function AlertsPage() {
                 placeholder="Authority key"
                 value={authorityKey}
                 onChange={(e) => setAuthorityKey(e.target.value)}
-                className="px-3 py-2 text-sm rounded-[var(--radius-sm)] border outline-none"
+                className="px-1 py-2 text-sm outline-none bg-transparent border-0 border-b-2 border-[var(--border-hairline-strong)] transition-colors duration-150 focus:border-[var(--accent)]"
                 style={{ background: "var(--bg-panel-raised)", borderColor: "var(--border-hairline-strong)" }}
               />
               <button
@@ -141,7 +141,10 @@ export default function AlertsPage() {
             </div>
           ) : (
             <div className="flex flex-wrap items-center gap-3">
-              <span className="text-xs px-2 py-1 rounded-[var(--radius-sm)]" style={{ background: "var(--risk-safe)", color: "var(--bg-void)" }}>
+              <span
+                className="text-xs font-mono font-medium uppercase tracking-[0.04em] px-2.5 py-1 border-l-2"
+                style={{ color: "var(--risk-safe)", borderColor: "var(--risk-safe)", background: "var(--bg-panel-raised)" }}
+              >
                 Authority mode
               </span>
               <LocationSearch onSelect={setLocation} />
@@ -153,7 +156,7 @@ export default function AlertsPage() {
               >
                 {creating ? "Issuing…" : "Issue alert from live risk data"}
               </button>
-              <button onClick={() => { setUnlocked(false); setAuthorityKey(""); }} className="text-xs text-[var(--text-tertiary)] underline">
+              <button onClick={() => { setUnlocked(false); setAuthorityKey(""); }} className="text-xs text-[var(--text-tertiary)] underline transition-opacity duration-150 hover:opacity-70">
                 Sign out
               </button>
               {keyError && <span className="text-xs w-full" style={{ color: "var(--risk-high)" }}>{keyError}</span>}
@@ -166,7 +169,7 @@ export default function AlertsPage() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className="text-xs px-3 py-1.5 rounded-[var(--radius-sm)] border"
+              className="text-xs px-3 py-1.5 rounded-[var(--radius-sm)] border transition-colors duration-150"
               style={{
                 borderColor: "var(--border-hairline-strong)",
                 background: filter === f ? "var(--accent)" : "var(--bg-panel)",
@@ -188,12 +191,12 @@ export default function AlertsPage() {
           {visible.map((a) => (
             <div
               key={a.id}
-              className="rounded-[var(--radius-md)] border p-6"
+              className="rounded-[var(--radius-md)] border p-6 transition-colors duration-200 hover:border-[var(--border-hairline-strong)]"
               style={{ borderColor: "var(--border-hairline)", background: "var(--bg-panel)" }}
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <div className="text-xs text-[var(--text-tertiary)] mb-1">
+                  <div className="text-xs text-[var(--text-tertiary)] mb-1 ">
                     {new Date(a.created_at_unix * 1000).toLocaleString()}
                   </div>
                   <h2 className="font-medium">{a.location_name}</h2>
@@ -204,7 +207,7 @@ export default function AlertsPage() {
                     <button
                       onClick={() => handleResolve(a.id)}
                       disabled={resolvingId === a.id}
-                      className="text-xs px-3 py-1.5 rounded-[var(--radius-sm)] border font-medium disabled:opacity-40"
+                      className="text-xs px-3 py-1.5 rounded-[var(--radius-sm)] border font-medium disabled:opacity-40 transition-colors duration-150 hover:bg-[var(--bg-panel-raised)]"
                       style={{ borderColor: "var(--border-hairline-strong)", color: "var(--text-secondary)" }}
                     >
                       {resolvingId === a.id ? "Resolving…" : "Mark resolved"}
