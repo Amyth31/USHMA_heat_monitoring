@@ -21,4 +21,4 @@ COPY data/ data/
 WORKDIR /app/backend
 EXPOSE 5000
 ENV PORT=5000
-CMD ["python", "app.py"]
+CMD gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 60 "app:create_app()"
