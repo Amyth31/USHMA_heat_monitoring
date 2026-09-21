@@ -42,7 +42,7 @@ export default function RiskMapPage() {
   return (
     <main className="min-h-screen">
       <TopNav />
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-6 py-10">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
           <div>
             <h1 className="text-2xl font-semibold mb-1">Risk Map</h1>
@@ -55,11 +55,17 @@ export default function RiskMapPage() {
               <button
                 key={m}
                 onClick={() => setMode(m)}
-                className="text-xs px-3 py-1.5 rounded-[var(--radius-sm)] border capitalize"
+                className="text-xs px-3 py-1.5 rounded-[var(--radius-sm)] border capitalize transition-colors duration-150"
                 style={{
                   borderColor: "var(--border-hairline-strong)",
                   background: mode === m ? "var(--accent)" : "var(--bg-panel)",
                   color: mode === m ? "var(--bg-void)" : "var(--text-secondary)",
+                }}
+                onMouseEnter={(e) => {
+                  if (mode !== m) e.currentTarget.style.background = "var(--bg-panel-raised)";
+                }}
+                onMouseLeave={(e) => {
+                  if (mode !== m) e.currentTarget.style.background = "var(--bg-panel)";
                 }}
               >
                 {m}

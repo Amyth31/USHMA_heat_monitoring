@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  /* Base surfaces — deep navy-charcoal, not pure black */
-  --bg-void: #0a0d12;
-  --bg-base: #0e1218;
-  --bg-panel: #131822;
-  --bg-panel-raised: #171d29;
-  --border-hairline: #232a38;
-  --border-hairline-strong: #2f3848;
+  /* Base surfaces — true neutral black, no blue cast */
+  --bg-void: #000000;
+  --bg-base: #000000;
+  --bg-panel: #121212;
+  --bg-panel-raised: #1c1c1c;
+  --border-hairline: #262626;
+  --border-hairline-strong: #333333;
 
   /* Text */
   --text-primary: #e7ebf1;

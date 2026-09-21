@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HumidityDemo from "@/components/HumidityDemo";
+import HeatFieldHero from "@/components/HeatFieldHero";
 
 const PIPELINE_STAGES = [
   { label: "Weather", detail: "Real-time observations & 5-day forecast" },
@@ -22,48 +23,7 @@ export default function LandingPage() {
   return (
     <main className="min-h-screen">
       {/* HERO */}
-      <section className="border-b min-h-screen flex items-center" style={{ borderColor: "var(--border-hairline)" }}>
-        <div className="max-w-6xl mx-auto px-6 py-24 relative w-full">
-          {/* Left column — copy + CTAs */}
-          <div>
-            <div
-              className="text-xs font-mono uppercase tracking-[0.14em] mb-5"
-              style={{ color: "var(--text-tertiary)" }}
-            >
-              USHMA · Unified System for Heat Monitoring &amp; Analytics
-            </div>
-
-            <h1 className="text-4xl md:text-5xl leading-[1.1] font-semibold max-w-xl mb-6">
-              Heat doesn&apos;t kill because of temperature alone.
-            </h1>
-            <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-xl mb-10 leading-relaxed">
-              USHMA predicts what extreme heat will do to people — combining
-              weather intelligence, thermal stress modelling, real population
-              vulnerability data, and health-risk estimation for hyperlocal
-              heatwave early warning, worldwide. India runs at real
-              district-level depth; every other country uses real
-              country-level data.
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/dashboard"
-                className="px-6 py-3 rounded-[var(--radius-sm)] font-medium text-sm transition-colors duration-150"
-                style={{ background: "var(--accent)", color: "var(--bg-void)" }}
-              >
-                Enter Command Centre
-              </Link>
-              <Link
-                href="/risk-map"
-                className="px-6 py-3 rounded-[var(--radius-sm)] font-medium text-sm border transition-colors duration-150 hover:bg-[var(--bg-panel)]"
-                style={{ borderColor: "var(--border-hairline-strong)" }}
-              >
-                View risk map
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeatFieldHero />
 
       {/* SECTION 1 — humidity demo */}
       <section className="border-b" style={{ borderColor: "var(--border-hairline)" }}>

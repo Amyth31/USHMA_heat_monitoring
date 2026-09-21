@@ -4,7 +4,7 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen">
       <TopNav />
-      <div className="max-w-3xl mx-auto px-6 py-14">
+      <div className="max-w-3xl mx-auto px-6 py-10">
         <h1 className="text-3xl font-semibold mb-2">USHMA</h1>
         <p className="text-[var(--text-secondary)] mb-10">
           Unified System for Heat Monitoring &amp; Analytics — also referred to as HeatShield

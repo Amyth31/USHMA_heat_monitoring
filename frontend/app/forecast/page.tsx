@@ -56,7 +56,7 @@ export default function ForecastPage() {
   return (
     <main className="min-h-screen">
       <TopNav />
-      <div className="max-w-5xl mx-auto px-6 py-8">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
           <div>
             <h1 className="text-2xl font-semibold mb-1">5-day Forecast</h1>
@@ -86,7 +86,7 @@ export default function ForecastPage() {
 
             <div className="grid md:grid-cols-5 gap-px" style={{ background: "var(--border-hairline)" }}>
               {computed.map((d, i) => (
-                <div key={i} className="p-5" style={{ background: "var(--bg-panel)" }}>
+                <div key={i} className="p-5 transition-colors duration-200 hover:bg-[var(--bg-panel-raised)]" style={{ background: "var(--bg-panel)" }}>
                   <div className="text-xs text-[var(--text-tertiary)] mb-3">{d.day}</div>
                   <div className="font-data text-2xl mb-3">{d.temperature.toFixed(1)}°C</div>
                   <div className="text-xs text-[var(--text-secondary)] space-y-1">

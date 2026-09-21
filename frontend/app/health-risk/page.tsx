@@ -3,7 +3,9 @@
 import TopNav from "@/components/TopNav";
 import RiskBadge from "@/components/RiskBadge";
 import LocationSearch from "@/components/LocationSearch";
+import DemoScenarioSelect from "@/components/DemoScenarioSelect";
 import { PanelSkeleton } from "@/components/Skeleton";
+import { RISK_COLORS } from "@/lib/api";
 import { useRiskOverview } from "@/hooks/useRiskOverview";
 
 export default function HealthRiskPage() {
@@ -13,7 +15,7 @@ export default function HealthRiskPage() {
   return (
     <main className="min-h-screen">
       <TopNav />
-      <div className="max-w-5xl mx-auto px-6 py-8">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
           <div>
             <h1 className="text-2xl font-semibold mb-1">Health Risk</h1>
@@ -23,17 +25,7 @@ export default function HealthRiskPage() {
           </div>
           <div className="flex gap-3">
             <LocationSearch onSelect={setLocation} />
-            <select
-              value={demoKey || ""}
-              onChange={(e) => setDemoKey(e.target.value || undefined)}
-              className="text-sm px-3 py-2 rounded-[var(--radius-sm)] border"
-              style={{ background: "var(--bg-panel)", borderColor: "var(--border-hairline-strong)" }}
-            >
-              <option value="">Live weather</option>
-              {demoEvents.map((ev) => (
-                <option key={ev.key} value={ev.key}>{ev.label}</option>
-              ))}
-            </select>
+            <DemoScenarioSelect value={demoKey} onChange={setDemoKey} events={demoEvents} />
           </div>
         </div>
 
@@ -62,12 +54,14 @@ export default function HealthRiskPage() {
             <RiskCard
               title="Mortality relative risk"
               value={`${overview.health_risk.mortality_relative_risk}×`}
+              rawValue={overview.health_risk.mortality_relative_risk}
               category={overview.health_risk.mortality_risk_category}
               note="vs. baseline risk below the documented 40°C threshold"
             />
             <RiskCard
               title="Hospitalization relative risk"
               value={`${overview.health_risk.hospitalization_relative_risk}×`}
+              rawValue={overview.health_risk.hospitalization_relative_risk}
               category={overview.health_risk.hospitalization_risk_category}
               note="scaled from the mortality curve per heat-illness literature"
             />
@@ -95,13 +89,20 @@ export default function HealthRiskPage() {
   );
 }
 
-function RiskCard({ title, value, category, note }: { title: string; value: string; category: string; note: string }) {
+const RELATIVE_RISK_SCALE_MAX = 5;
+
+function RiskCard({ title, value, rawValue, category, note }: { title: string; value: string; rawValue: number; category: string; note: string }) {
+  const color = RISK_COLORS[category] || "var(--text-secondary)";
+  const pct = Math.min(100, (rawValue / RELATIVE_RISK_SCALE_MAX) * 100);
   return (
     <div className="rounded-[var(--radius-md)] border p-6" style={{ borderColor: "var(--border-hairline)", background: "var(--bg-panel)" }}>
       <div className="text-sm text-[var(--text-secondary)] mb-2">{title}</div>
-      <div className="flex items-baseline gap-3 mb-2">
+      <div className="flex items-baseline gap-3 mb-3">
         <span className="font-data text-4xl">{value}</span>
         <RiskBadge category={category} />
+      </div>
+      <div className="h-1.5 rounded-full overflow-hidden mb-3" style={{ background: "var(--bg-panel-raised)" }}>
+        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: color }} />
       </div>
       <p className="text-xs text-[var(--text-tertiary)]">{note}</p>
     </div>

@@ -51,7 +51,7 @@ export default function MethodologyPage() {
   return (
     <main className="min-h-screen">
       <TopNav />
-      <div className="max-w-3xl mx-auto px-6 py-14">
+      <div className="max-w-3xl mx-auto px-6 py-10">
         <h1 className="text-3xl font-semibold mb-3">Methodology</h1>
         <p className="text-[var(--text-secondary)] mb-12">
           Every number in USHMA traces to a real, documented, cited source or a

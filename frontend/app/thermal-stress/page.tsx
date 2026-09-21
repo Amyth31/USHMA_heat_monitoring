@@ -7,6 +7,7 @@ import LocationSearch from "@/components/LocationSearch";
 import RiskGauge from "@/components/RiskGauge";
 import { PanelSkeleton } from "@/components/Skeleton";
 import { useRiskOverview } from "@/hooks/useRiskOverview";
+import SeverityBar from "@/components/SeverityBar";
 
 export default function ThermalStressPage() {
   const { location, setLocation, overview, demoEvents, demoKey, setDemoKey, loading, error } =
@@ -15,7 +16,7 @@ export default function ThermalStressPage() {
   return (
     <main className="min-h-screen">
       <TopNav />
-      <div className="max-w-5xl mx-auto px-6 py-8">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
           <div>
             <h1 className="text-2xl font-semibold mb-1">What makes heat dangerous?</h1>
@@ -46,18 +47,42 @@ export default function ThermalStressPage() {
                 <h2 className="text-sm font-medium text-[var(--text-secondary)] mb-5">
                   Contribution breakdown
                 </h2>
-                <div className="space-y-4">
-                  {Object.entries(overview.thermal_stress.contributions).map(([k, v]) => (
-                    <div key={k}>
-                      <div className="flex justify-between text-sm mb-1.5">
-                        <span className="capitalize">{k.replace(/_/g, " ").replace(" contribution", "")}</span>
-                        <span className="font-data">+{v}</span>
-                      </div>
-                      <div className="h-2 rounded-full overflow-hidden" style={{ background: "var(--bg-panel-raised)" }}>
-                        <div className="h-full" style={{ width: `${(v / 45) * 100}%`, background: "var(--accent)" }} />
-                      </div>
-                    </div>
-                  ))}
+                <div className="space-y-5">
+                  <SeverityBar
+                    label="Exposure Duration"
+                    value={(overview.thermal_stress.contributions.exposure_duration_contribution / 5) * 100}
+                    contribution={overview.thermal_stress.contributions.exposure_duration_contribution}
+                  />
+
+                  <SeverityBar
+                    label="Heat Index"
+                    value={(overview.thermal_stress.contributions.heat_index_contribution / 20) * 100}
+                    contribution={overview.thermal_stress.contributions.heat_index_contribution}
+                  />
+
+                  <SeverityBar
+                    label="Low Wind"
+                    value={(overview.thermal_stress.contributions.low_wind_contribution / 10) * 100}
+                    contribution={overview.thermal_stress.contributions.low_wind_contribution}
+                  />
+
+                  <SeverityBar
+                    label="Solar Radiation"
+                    value={(overview.thermal_stress.contributions.solar_radiation_contribution / 10) * 100}
+                    contribution={overview.thermal_stress.contributions.solar_radiation_contribution}
+                  />
+
+                  <SeverityBar
+                    label="Vulnerability"
+                    value={(overview.thermal_stress.contributions.vulnerability_contribution / 10) * 100}
+                    contribution={overview.thermal_stress.contributions.vulnerability_contribution}
+                  />
+
+                  <SeverityBar
+                    label="WBGT"
+                    value={(overview.thermal_stress.contributions.wbgt_contribution / 45) * 100}
+                    contribution={overview.thermal_stress.contributions.wbgt_contribution}
+                  />
                 </div>
                 <p className="text-xs text-[var(--text-tertiary)] mt-6 leading-relaxed font-data">
                   {overview.thermal_stress.formula}

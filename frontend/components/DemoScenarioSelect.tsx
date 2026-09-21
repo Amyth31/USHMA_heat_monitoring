@@ -20,7 +20,7 @@ export default function DemoScenarioSelect({
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-2 text-sm px-3 py-2 rounded-[var(--radius-sm)] border"
+        className="flex items-center gap-2 text-sm px-3 py-2 rounded-[var(--radius-sm)] border transition-colors duration-150 hover:bg-[var(--bg-panel-raised)]"
         style={{ background: "var(--bg-panel)", borderColor: "var(--border-hairline-strong)", color: "var(--text-primary)" }}
       >
         <span>{current ? current.label : "Live weather"}</span>

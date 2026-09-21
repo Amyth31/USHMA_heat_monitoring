@@ -1,5 +1,6 @@
 "use client";
 
+import SeverityBar from "@/components/SeverityBar";
 import DemoScenarioSelect from "@/components/DemoScenarioSelect";
 import { useEffect, useState } from "react";
 import { api, Location, RiskOverview, Recommendation, DemoEvent } from "@/lib/api";
@@ -8,7 +9,7 @@ import LocationSearch from "@/components/LocationSearch";
 import TopNav from "@/components/TopNav";
 import RiskGauge from "@/components/RiskGauge";
 import { MetricStripSkeleton, PanelSkeleton } from "@/components/Skeleton";
-import { Thermometer, Droplets, Wind, Flame, Gauge, Sun } from "lucide-react";
+import { ThermometerIcon, DropletIcon, WindIcon, FlameIcon, GaugeIcon, SunIcon } from "@/components/icons/MetricIcons";
 
 export default function DashboardPage() {
   const [location, setLocation] = useState<Location | null>(null);
@@ -50,7 +51,7 @@ export default function DashboardPage() {
     <main className="min-h-screen">
       <TopNav />
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-6 py-10">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
           <div>
             <h1 className="text-2xl font-semibold mb-1">Heat Risk Command Centre</h1>
@@ -119,12 +120,12 @@ export default function DashboardPage() {
 
 function MetricStrip({ overview }: { overview: RiskOverview }) {
   const items = [
-    { label: "Temperature", value: `${overview.weather.temperature_c.toFixed(1)}°C`, Icon: Thermometer },
-    { label: "Humidity", value: `${overview.weather.relative_humidity_pct.toFixed(0)}%`, Icon: Droplets },
-    { label: "Wind", value: `${overview.weather.wind_speed_ms.toFixed(1)} m/s`, Icon: Wind },
-    { label: "Heat Index", value: `${overview.heat_index.heat_index_c.toFixed(1)}°C`, Icon: Flame },
-    { label: "WBGT", value: `${overview.wbgt.wbgt_c.toFixed(1)}°C`, Icon: Gauge },
-    { label: "UTCI", value: `${overview.utci.utci_c.toFixed(1)}°C`, Icon: Sun },
+    { label: "Temperature", value: `${overview.weather.temperature_c.toFixed(1)}°C`, Icon: ThermometerIcon },
+    { label: "Humidity", value: `${overview.weather.relative_humidity_pct.toFixed(0)}%`, Icon: DropletIcon },
+    { label: "Wind", value: `${overview.weather.wind_speed_ms.toFixed(1)} m/s`, Icon: WindIcon },
+    { label: "Heat Index", value: `${overview.heat_index.heat_index_c.toFixed(1)}°C`, Icon: FlameIcon },
+    { label: "WBGT", value: `${overview.wbgt.wbgt_c.toFixed(1)}°C`, Icon: GaugeIcon },
+    { label: "UTCI", value: `${overview.utci.utci_c.toFixed(1)}°C`, Icon: SunIcon },
   ];
   return (
     <div className="grid grid-cols-2 md:grid-cols-6 gap-px" style={{ background: "var(--border-hairline)" }}>
@@ -164,18 +165,42 @@ function ThermalStressPanel({ overview }: { overview: RiskOverview }) {
           </p>
         </div>
       </div>
-      <div className="space-y-2">
-        {Object.entries(s.contributions).map(([k, v]) => (
-          <div key={k} className="flex items-center gap-3">
-            <span className="text-xs text-[var(--text-secondary)] w-52 shrink-0">
-              {k.replace(/_/g, " ").replace(" contribution", "")}
-            </span>
-            <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "var(--bg-panel-raised)" }}>
-              <div className="h-full" style={{ width: `${(v / 45) * 100}%`, background: "var(--accent)" }} />
-            </div>
-            <span className="font-data text-xs w-10 text-right">+{v}</span>
-          </div>
-        ))}
+      <div className="space-y-5">
+        <SeverityBar
+          label="WBGT"
+          value={(s.contributions.wbgt_contribution / 45) * 100}
+          contribution={s.contributions.wbgt_contribution}
+        />
+
+        <SeverityBar
+          label="Heat Index"
+          value={(s.contributions.heat_index_contribution / 20) * 100}
+          contribution={s.contributions.heat_index_contribution}
+        />
+
+        <SeverityBar
+          label="Low Wind"
+          value={(s.contributions.low_wind_contribution / 10) * 100}
+          contribution={s.contributions.low_wind_contribution}
+        />
+
+        <SeverityBar
+          label="Solar Radiation"
+          value={(s.contributions.solar_radiation_contribution / 10) * 100}
+          contribution={s.contributions.solar_radiation_contribution}
+        />
+
+        <SeverityBar
+          label="Exposure Duration"
+          value={(s.contributions.exposure_duration_contribution / 5) * 100}
+          contribution={s.contributions.exposure_duration_contribution}
+        />
+
+        <SeverityBar
+          label="Vulnerability"
+          value={(s.contributions.vulnerability_contribution / 10) * 100}
+          contribution={s.contributions.vulnerability_contribution}
+        />
       </div>
       <div className="mt-6 pt-4 border-t grid grid-cols-2 gap-4" style={{ borderColor: "var(--border-hairline)" }}>
         <div>
@@ -196,28 +221,128 @@ function ThermalStressPanel({ overview }: { overview: RiskOverview }) {
 
 function HeatwavePanel({ overview }: { overview: RiskOverview }) {
   const hw = overview.heatwave;
+
+  const values = hw.daily_breakdown.map(
+    (d) => d.departure_from_normal_c
+  );
+
+  const maxAbsValue = Math.max(
+    ...values.map((value) => Math.abs(value)),
+    1
+  );
+
+  const chartMax = Math.ceil(maxAbsValue / 2) * 2;
+
   return (
     <Panel title="Heatwave status (IMD criteria)">
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-3 mb-6">
         <RiskBadge category={hw.overall_status} />
+
         {hw.confirmed_multiday_heatwave && (
           <span className="text-xs text-[var(--text-secondary)]">
             Confirmed — {hw.consecutive_severe_days} consecutive severe days
           </span>
         )}
       </div>
-      <div className="flex gap-1">
-        {hw.daily_breakdown.map((d, i) => (
-          <div key={i} className="flex-1 text-center">
-            <div className="text-xs text-[var(--text-tertiary)] mb-1">D{i + 1}</div>
-            <div
-              className="h-16 rounded-[var(--radius-sm)] flex items-end justify-center pb-1 text-xs font-data"
-              style={{ background: "var(--bg-panel-raised)" }}
-            >
-              +{d.departure_from_normal_c}°
-            </div>
+
+      <div>
+        <div className="mb-5">
+          <div className="text-sm text-[var(--text-secondary)]">
+            Temperature departure from normal
           </div>
-        ))}
+          <div className="text-xs text-[var(--text-tertiary)] mt-1">
+            5-day forecast
+          </div>
+        </div>
+
+        <div className="relative">
+          {/* Chart area */}
+          <div className="relative ml-9 h-64">
+            {/* Grid lines */}
+            <div
+              className="absolute inset-x-0 top-0 border-t"
+              style={{ borderColor: "var(--border-hairline)" }}
+            />
+
+            <div
+              className="absolute inset-x-0 top-1/2 border-t"
+              style={{ borderColor: "var(--border-hairline)" }}
+            />
+
+            <div
+              className="absolute inset-x-0 bottom-0 border-t"
+              style={{ borderColor: "var(--border-hairline)" }}
+            />
+
+            {/* Y-axis labels */}
+            <div className="absolute -left-9 top-0 bottom-0 flex flex-col justify-between">
+              <span className="font-data text-[10px] text-[var(--text-tertiary)]">
+                +{chartMax}°
+              </span>
+
+              <span className="font-data text-[10px] text-[var(--text-tertiary)]">
+                0°
+              </span>
+
+              <span className="font-data text-[10px] text-[var(--text-tertiary)]">
+                -{chartMax}°
+              </span>
+            </div>
+
+            {/* Bars */}
+            <div className="relative h-full flex items-center justify-around gap-5">
+              {hw.daily_breakdown.map((d, i) => {
+                const value = d.departure_from_normal_c;
+
+                const barHeight =
+                  (Math.abs(value) / chartMax) * 50;
+
+                const isPositive = value >= 0;
+
+                return (
+                  <div
+                    key={i}
+                    className="relative h-full flex-1 flex justify-center"
+                  >
+                    {/* Value */}
+                    <div
+                      className="absolute left-1/2 -translate-x-1/2 font-data text-xs whitespace-nowrap"
+                      style={{
+                        top: isPositive
+                          ? `calc(${50 - barHeight}% - 22px)`
+                          : `calc(${50 + barHeight}% + 8px)`,
+                      }}
+                    >
+                      {value >= 0 ? "+" : ""}
+                      {value.toFixed(1)}°
+                    </div>
+
+                    {/* Bar */}
+                    <div
+                      className="absolute left-1/2 -translate-x-1/2 w-10 transition-all duration-500"
+                      style={{
+                        height: `${barHeight}%`,
+                        top: isPositive ? `${50 - barHeight}%` : "50%",
+                        background: "var(--accent)",
+                      }}
+                    />
+
+                    {/* Day */}
+                    <div className="absolute bottom-[-24px] left-1/2 -translate-x-1/2 font-data text-xs text-[var(--text-secondary)]">
+                      D{i + 1}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Zero line */}
+            <div
+              className="absolute inset-x-0 top-1/2 border-t"
+              style={{ borderColor: "var(--text-tertiary)" }}
+            />
+          </div>
+        </div>
       </div>
     </Panel>
   );
