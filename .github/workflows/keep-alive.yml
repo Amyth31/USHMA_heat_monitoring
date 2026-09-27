@@ -1,0 +1,24 @@
+name: Keep Render backend awake
+
+# Render's free web services spin down after 15 minutes with no incoming
+# HTTP request. Pinging the health endpoint on a shorter interval keeps
+# the instance warm so demos/visits don't hit a 30-60s cold start.
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping backend health endpoint
+        run: |
+          url="https://ushma-heat-monitoring.onrender.com/api/health"
+          status=$(curl -s -o /tmp/response.txt -w "%{http_code}" "$url")
+          echo "GET $url -> HTTP $status"
+          cat /tmp/response.txt
+          if [ "$status" -ne 200 ]; then
+            echo "::warning::Backend health check returned HTTP $status instead of 200"
+          fi
