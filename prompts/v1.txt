@@ -1,0 +1,2 @@
+Write a heat-wave advisory for {city}. Max temperature is {max_temp_c}°C and humidity is
+{humidity_pct}%.
